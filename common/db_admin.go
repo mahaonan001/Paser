@@ -13,7 +13,7 @@ import (
 	"gorm.io/gorm"
 )
 
-func db_User() *gorm.DB {
+func db_Admin() *gorm.DB {
 	host := viper.GetString("datasource.hostname")
 	port := viper.GetString("datasource.port")
 	database := viper.GetString("datasource.database")
@@ -33,7 +33,7 @@ func db_User() *gorm.DB {
 	if err != nil {
 		response.Response(c, http.StatusServiceUnavailable, 500, gin.H{"code": 500}, "数据库连接出错")
 	}
-	db.AutoMigrate(&model.User{})
+	db.AutoMigrate(&model.Admin{})
 	return db
 }
 func Code_email_DB() *gorm.DB {
@@ -61,8 +61,8 @@ func Code_email_DB() *gorm.DB {
 	db.AutoMigrate(&model.EmailCode{})
 	return db
 }
-func GetDB_User() *gorm.DB {
-	return db_User()
+func GetDB_Admin() *gorm.DB {
+	return db_Admin()
 }
 func GetDB_Email() *gorm.DB {
 	return Code_email_DB()

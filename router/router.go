@@ -11,7 +11,7 @@ import (
 
 func CollectRouter(r *gin.Engine) *gin.Engine {
 	common.Init_db()
-	auth := r.Group("/api/auth")
+	auth := r.Group("/api/admin")
 	{
 		auth.POST("/register", controller.Register)
 		auth.POST("/login", controller.Login)

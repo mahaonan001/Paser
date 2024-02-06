@@ -28,20 +28,20 @@ func AuthMiddleware() gin.HandlerFunc {
 			return
 		}
 
-		//验证通过，获取userID
-		userId := claims.UserId
-		DB := common.GetDB_User()
-		var user model.User
-		DB.First(&user, userId)
+		//验证通过，获取AdminID
+		AdminId := claims.AdminId
+		DB := common.GetDB_Admin()
+		var Admin model.Admin
+		DB.First(&Admin, AdminId)
 
 		//用户信息不存在
-		if user.ID == 0 {
+		if Admin.ID == 0 {
 			response.Response(ctx, http.StatusUnauthorized, 401, gin.H{"code": 401, "msg": "权限不足 "}, "")
 			ctx.Abort()
 			return
 		}
-		//用户存在，将user信息写入上下文
-		ctx.Set("user", user)
+		//用户存在，将Admin信息写入上下文
+		ctx.Set("Admin", Admin)
 		ctx.Next()
 	}
 }

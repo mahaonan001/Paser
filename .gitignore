@@ -2,4 +2,4 @@
 /go.sum
 /server.exe
 /main.exe
-./config/application.yml
+config/application.yml
