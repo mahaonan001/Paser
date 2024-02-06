@@ -9,5 +9,5 @@ datasource:
   password: root
   charset: utf8
 emailCode:
-  smtpPassword: tjqddhienidzeccb
-  email: 1649801526@qq.com
+  smtpPassword: "邮箱申请码"
+  email: "样例邮箱"
