@@ -11,17 +11,12 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-type Paper struct {
-	Name          string              `json:"name"`
-	Title         []string            `json:"model"`
-	Questionnaire []map[string]string `json:"questionnaire"`
-}
-
 func AddPaper(c *gin.Context) {
-	var paper Paper
+	var paper model.Paper
 	c.ShouldBindJSON(&paper)
 	db := common.Con_Db_asp()
 	Name := paper.Name
+	Auther := paper.Auther
 	Title := strings.Join(paper.Title, ",")
 	questionnaireJson, err := json.Marshal(paper.Questionnaire)
 	if err != nil {
@@ -30,12 +25,20 @@ func AddPaper(c *gin.Context) {
 	}
 	Questions := string(questionnaireJson)
 	PaperNewUp := model.PaperNew{
+		Auther:    Auther,
 		Name:      Name,
 		Titles:    Title,
 		Questions: Questions,
 	}
-	fmt.Println("paper:", paper)
-	fmt.Println(PaperNewUp)
-	db.Create(&PaperNewUp)
-	response.SuccessRe(c, "问卷已上传", nil)
+	result := db.Where(&model.PaperNew{Auther: Auther, Name: Name}).Limit(1).Find(&PaperNewUp)
+	if result.Error != nil {
+		response.FalseRe(c, fmt.Sprintf("err:%v", result.Error), nil)
+		return
+	}
+	Cp := db.Create(&PaperNewUp)
+	if Cp.Error != nil {
+		response.FalseRe(c, fmt.Sprintf("err:%v", Cp.Error), nil)
+		return
+	}
+	response.Response(c, 200, 200, nil, "上传成功")
 }

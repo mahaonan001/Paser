@@ -1,61 +1,123 @@
-{
-    "name":"001",
-    "model":[
+{   
+    "auther":"13365443843",
+    "name": "001",
+    "kind":"单选",
+    "title": [
         "1",
         "2",
         "3",
         "4"
     ],
-    "questionnaire":[
+    "questionnaire": [
         {
-            "branch":"1",
-            "id":1,
-            "question":"yi"
+            "branch": "1",
+            "id": 1,
+            "question": "yi",
+            "operation": {
+                "A": "a",
+                "B": "b",
+                "C": "c",
+                "D": "d"
+            }
         },
         {
-            "branch":"3",
-            "id":2,
-            "question":"san"
+            "branch": "1",
+            "id": 2,
+            "question": "san",
+            "operation": {
+                "A": "a",
+                "B": "b",
+                "C": "c",
+                "D": "d"
+            }
         },
         {
-            "branch":"4",
-            "id":3,
-            "question":"si"
+            "branch": "4",
+            "id": 3,
+            "question": "si",
+            "operation": {
+                "A": "a",
+                "B": "b",
+                "C": "c",
+                "D": "d"
+            }
         },
         {
-            "branch":"1",
-            "id":4,
-            "question":"yi"
+            "branch": "1",
+            "id": 4,
+            "question": "yi",
+            "operation": {
+                "A": "a",
+                "B": "b",
+                "C": "c",
+                "D": "d"
+            }
         },
         {
-            "branch":"3",
-            "id":5,
-            "question":"san"
+            "branch": "3",
+            "id": 5,
+            "question": "san",
+            "operation": {
+                "A": "a",
+                "B": "b",
+                "C": "c",
+                "D": "d"
+            }
         },
         {
-            "branch":"2",
-            "id":6,
-            "question":"er"
+            "branch": "2",
+            "id": 6,
+            "question": "er",
+            "operation": {
+                "A": "a",
+                "B": "b",
+                "C": "c",
+                "D": "d"
+            }
         },
         {
-            "branch":"2",
-            "id":7,
-            "question":"er"
+            "branch": "2",
+            "id": 7,
+            "question": "er",
+            "operation": {
+                "A": "a",
+                "B": "b",
+                "C": "c",
+                "D": "d"
+            }
         },
         {
-            "branch":"1",
-            "id":8,
-            "question":"yi"
+            "branch": "1",
+            "id": 8,
+            "question": "yi",
+            "operation": {
+                "A": "a",
+                "B": "b",
+                "C": "c",
+                "D": "d"
+            }
         },
         {
-            "branch":"4",
-            "id":9,
-            "question":"si"
+            "branch": "4",
+            "id": 9,
+            "question": "si",
+            "operation": {
+                "A": "a",
+                "B": "b",
+                "C": "c",
+                "D": "d"
+            }
         },
         {
-            "branch":"3",
-            "id":10,
-            "question":"san"
+            "branch": "3",
+            "id": 10,
+            "question": "san",
+            "operation": {
+                "A": "a",
+                "B": "b",
+                "C": "c",
+                "D": "d"
+            }
         }
     ]
 }
