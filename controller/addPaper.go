@@ -4,6 +4,7 @@ import (
 	"PaSer/common"
 	"PaSer/model"
 	"PaSer/response"
+	"PaSer/util"
 	"encoding/json"
 	"fmt"
 	"strings"
@@ -29,6 +30,7 @@ func AddPaper(c *gin.Context) {
 		Name:      Name,
 		Titles:    Title,
 		Questions: Questions,
+		Number:    util.RandomString(6),
 	}
 	result := db.Where(&model.PaperNew{Auther: Auther, Name: Name}).Limit(1).Find(&PaperNewUp)
 	if result.Error != nil {
@@ -40,5 +42,5 @@ func AddPaper(c *gin.Context) {
 		response.FalseRe(c, fmt.Sprintf("err:%v", Cp.Error), nil)
 		return
 	}
-	response.Response(c, 200, 200, nil, "上传成功")
+	response.Response(c, 200, 200, gin.H{"code": PaperNewUp.Number}, "上传成功")
 }

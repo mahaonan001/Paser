@@ -8,6 +8,7 @@ type PaperNew struct {
 	Name      string `gorm:"type:varchar(20);not null;primaryKey"`
 	Titles    string `gorm:"type:varchar(20);not null"`
 	Questions string `gorm:"type:TEXT(65535);not null"`
+	Number    string `gorm:"type:varchar(6);not null;unique"`
 }
 type Operations struct {
 	A string `json:"A"`
