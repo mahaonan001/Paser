@@ -29,7 +29,7 @@ func AuthMiddleware() gin.HandlerFunc {
 		}
 
 		//验证通过，获取AdminID
-		AdminId := claims.AdminId
+		AdminId := claims.UserId
 		DB := common.GetDB_Admin()
 		var Admin model.Admin
 		DB.First(&Admin, AdminId)

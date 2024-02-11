@@ -10,14 +10,14 @@ import (
 var jwtKey = []byte("a_secret_crect")
 
 type Claims struct {
-	AdminId uint
+	UserId uint
 	jwt.StandardClaims
 }
 
 func ReleaseToken(Admin model.Admin) (string, error) {
 	expirationTime := time.Now().Add(7 * 24 * time.Hour)
 	claims := &Claims{
-		AdminId: Admin.ID,
+		UserId: Admin.ID,
 		StandardClaims: jwt.StandardClaims{
 			ExpiresAt: expirationTime.Unix(),
 			IssuedAt:  time.Now().Unix(),
@@ -38,4 +38,22 @@ func ParseToken(tokenString string) (*jwt.Token, *Claims, error) {
 		return jwtKey, nil
 	})
 	return token, claims, err
+}
+func ReleaseToken_User(User model.User) (string, error) {
+	expirationTime := time.Now().Add(7 * 24 * time.Hour)
+	claims := &Claims{
+		UserId: User.ID,
+		StandardClaims: jwt.StandardClaims{
+			ExpiresAt: expirationTime.Unix(),
+			IssuedAt:  time.Now().Unix(),
+			Issuer:    "TokenTime ing",
+			Subject:   "User token",
+		},
+	}
+	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
+	tokenString, err := token.SignedString(jwtKey)
+	if err != nil {
+		return "", err
+	}
+	return tokenString, nil
 }

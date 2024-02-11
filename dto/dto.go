@@ -15,3 +15,17 @@ func AdminInfo(Admin model.Admin) AdminDto {
 		Email: Admin.Email,
 	}
 }
+
+type UserDto struct {
+	Name  string `json:"name"`
+	Phone string `json:"phone"`
+	Email string `json:"email"`
+}
+
+func UserInfo(User model.User) UserDto {
+	return UserDto{
+		Name:  User.Name,
+		Phone: User.Phone,
+		Email: User.Email,
+	}
+}
