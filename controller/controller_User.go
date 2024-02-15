@@ -21,13 +21,9 @@ func Register_User(c *gin.Context) {
 	Email := c.PostForm("email")
 	Name := c.PostForm("name")
 	PassWord := c.PostForm("password")
-	Phone := c.PostForm("phone")
 	Code_Email := c.PostForm("code")
 	//数据验证
-	if len(Phone) != 11 {
-		response.Response(c, http.StatusUnprocessableEntity, 403, nil, "手机号必须是11位数")
-		return
-	}
+
 	if len(PassWord) < 6 {
 		response.Response(c, http.StatusUnprocessableEntity, 403, nil, "密码不能低于6位数")
 		return
@@ -39,13 +35,8 @@ func Register_User(c *gin.Context) {
 	var emailRegex = regexp.MustCompile(`^[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,4}$`)
 	// 使用MatchString()函数来判断电子邮件地址是否匹配正则表达式
 	if emailRegex.MatchString(Email) {
-		log.Println("phone:", Phone, "name:", Name, "email:", Email)
-		//判断手机号是否存在
-		if isPhoneExited_User(db_User, Phone).ID != 0 {
-			response.Response(c, http.StatusOK, 403, nil, "该手机号已注册")
-			return
-		}
-		if isPhoneExited_User(db_User, Email).ID != 0 {
+		log.Println("name:", Name, "email:", Email)
+		if isEmailExited_User(db_User, Email).ID != 0 {
 			response.Response(c, http.StatusOK, 403, nil, "该邮箱已注册")
 			return
 		}
@@ -62,7 +53,6 @@ func Register_User(c *gin.Context) {
 			newUser := model.User{
 				Name:       Name,
 				PassWord:   string(HashPassword),
-				Phone:      Phone,
 				ErrorTimes: 0,
 				Email:      Email,
 			}
@@ -73,27 +63,23 @@ func Register_User(c *gin.Context) {
 		}
 	}
 }
-func isPhoneExited_User(db *gorm.DB, Phone string) model.User {
+func isEmailExited_User(db *gorm.DB, Email string) model.User {
 	var User model.User
-	db.Where("Phone = ?", Phone).Order("id asc").Limit(1).Find(&User)
+	db.Where("Email = ?", Email).Order("id asc").Limit(1).Find(&User)
 	return User
 }
 func Login_User(c *gin.Context) {
 	db := common.GetDB_User()
 	//获取参数
-	Phone := c.PostForm("phone")
+	Email := c.PostForm("email")
 	PassWord := c.PostForm("password")
 	//数据验证
-	if len(Phone) != 11 {
-		response.Response(c, http.StatusOK, 403, nil, "手机号必须是11位数")
-		return
-	}
 	if len(PassWord) < 6 {
 		response.Response(c, http.StatusOK, 400, nil, "密码不能低于6位数")
 		return
 	}
-	log.Println("phone:", Phone, "PassWord:", PassWord, " is logining")
-	User := isPhoneExited_User(db, Phone)
+	log.Println("email:", Email, "PassWord:", PassWord, " is logining")
+	User := isEmailExited_User(db, Email)
 	log.Println(User)
 	if User.ID == 0 {
 		response.FalseRe(c, "用户不存在", nil)
@@ -124,4 +110,7 @@ func Login_User(c *gin.Context) {
 func Info_User(ctx *gin.Context) {
 	User, _ := ctx.Get("User")
 	response.Response(ctx, http.StatusOK, 200, gin.H{"User": dto.UserInfo(User.(model.User))}, "成功获取信息")
+}
+func UploadPaper(c *gin.Context) {
+
 }

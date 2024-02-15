@@ -26,6 +26,7 @@ func CollectRouter(r *gin.Engine) *gin.Engine {
 		user.GET("/info", middleware.AuthMiddleware(), controller.Info_User)
 		user.POST("/get_code", mail.Code_email)
 		user.GET("/getpaper", controller.GetPaper)
+		user.POST("/uploadpaper", controller.UploadPaper)
 	}
 	return r
 }

@@ -21,13 +21,8 @@ func Register(c *gin.Context) {
 	Email := c.PostForm("email")
 	Name := c.PostForm("name")
 	PassWord := c.PostForm("password")
-	Phone := c.PostForm("phone")
 	Code_Email := c.PostForm("code")
 	//数据验证
-	if len(Phone) != 11 {
-		response.Response(c, http.StatusUnprocessableEntity, 403, nil, "手机号必须是11位数")
-		return
-	}
 	if len(PassWord) < 6 {
 		response.Response(c, http.StatusUnprocessableEntity, 403, nil, "密码不能低于6位数")
 		return
@@ -39,13 +34,8 @@ func Register(c *gin.Context) {
 	var emailRegex = regexp.MustCompile(`^[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,4}$`)
 	// 使用MatchString()函数来判断电子邮件地址是否匹配正则表达式
 	if emailRegex.MatchString(Email) {
-		log.Println("phone:", Phone, "name:", Name, "email:", Email)
-		//判断手机号是否存在
-		if isPhoneExited(db_Admin, Phone).ID != 0 {
-			response.Response(c, http.StatusOK, 403, nil, "该手机号已注册")
-			return
-		}
-		if isPhoneExited(db_Admin, Email).ID != 0 {
+		log.Println("name:", Name, "email:", Email)
+		if isEmailExited(db_Admin, Email).ID != 0 {
 			response.Response(c, http.StatusOK, 403, nil, "该邮箱已注册")
 			return
 		}
@@ -62,7 +52,6 @@ func Register(c *gin.Context) {
 			newAdmin := model.Admin{
 				Name:       Name,
 				PassWord:   string(HashPassword),
-				Phone:      Phone,
 				ErrorTimes: 0,
 				Email:      Email,
 			}
@@ -73,27 +62,23 @@ func Register(c *gin.Context) {
 		}
 	}
 }
-func isPhoneExited(db *gorm.DB, Phone string) model.Admin {
+func isEmailExited(db *gorm.DB, Email string) model.Admin {
 	var Admin model.Admin
-	db.Where("Phone = ?", Phone).Order("id asc").Limit(1).Find(&Admin)
+	db.Where("Email = ?", Email).Order("id asc").Limit(1).Find(&Admin)
 	return Admin
 }
 func Login(c *gin.Context) {
 	db := common.GetDB_Admin()
 	//获取参数
-	Phone := c.PostForm("phone")
+	Email := c.PostForm("email")
 	PassWord := c.PostForm("password")
 	//数据验证
-	if len(Phone) != 11 {
-		response.Response(c, http.StatusOK, 403, nil, "手机号必须是11位数")
-		return
-	}
 	if len(PassWord) < 6 {
 		response.Response(c, http.StatusOK, 400, nil, "密码不能低于6位数")
 		return
 	}
-	log.Println("phone:", Phone, "PassWord:", PassWord, " is logining")
-	Admin := isPhoneExited(db, Phone)
+	log.Println("email:", Email, "PassWord:", PassWord, " is logining")
+	Admin := isEmailExited(db, Email)
 	log.Println(Admin)
 	if Admin.ID == 0 {
 		response.FalseRe(c, "用户不存在", nil)

@@ -10,7 +10,6 @@ type Admin struct {
 	gorm.Model
 	Email      string `gorm:"type:varchar(20);not null;unique"`
 	Name       string `gorm:"type:varchar(20);not null"`
-	Phone      string `gorm:"type:varchar(11);not null;unique"`
 	PassWord   string `gorm:"type:varchar(255);not null"`
 	ErrorTimes int8   `gorm:"type:int8;not null"`
 }
@@ -18,7 +17,6 @@ type User struct {
 	gorm.Model
 	Email      string `gorm:"type:varchar(20);not null;unique"`
 	Name       string `gorm:"type:varchar(20);not null"`
-	Phone      string `gorm:"type:varchar(11);not null;unique"`
 	PassWord   string `gorm:"type:varchar(255);not null"`
 	ErrorTimes int8   `gorm:"type:int8;not null"`
 }
