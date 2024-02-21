@@ -111,6 +111,3 @@ func Info_User(ctx *gin.Context) {
 	User, _ := ctx.Get("User")
 	response.Response(ctx, http.StatusOK, 200, gin.H{"User": dto.UserInfo(User.(model.User))}, "成功获取信息")
 }
-func UploadPaper(c *gin.Context) {
-
-}

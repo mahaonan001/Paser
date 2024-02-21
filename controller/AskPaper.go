@@ -16,11 +16,11 @@ func GetPaper(c *gin.Context) {
 	db := common.GetDB_ASP()
 	result := db.Where("Number=?", Code).Limit(1).Find(&Paper)
 	if result.Error != nil {
-		response.FalseRe(c, "数据库连接失败", nil)
+		response.FalseRe(c, "unexpected err to connect datebase", nil)
 		return
 	}
 	if Paper.ID == 0 {
-		response.FalseRe(c, "无此问卷", nil)
+		response.FalseRe(c, "no such paper", nil)
 		return
 	}
 	jsonBytes, err := json.Marshal(Paper)

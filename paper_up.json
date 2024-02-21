@@ -1,13 +1,6 @@
 {   
-    "auther":"youraccount",
-    "name": "001",
-    
-    "title": [
-        "1",
-        "2",
-        "3",
-        "4"
-    ],
+    "acount":"youraccount",
+    "number":"your paper number",
     "questionnaire": [
         {
             "branch": "1",
