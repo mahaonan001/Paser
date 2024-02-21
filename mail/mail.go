@@ -45,11 +45,11 @@ func SendMail(Toemail string, c *gin.Context) {
 		return
 	}
 	e := email.NewEmail()
-	e.From = smtpUser                                                                                               // 发件人邮箱账号
-	e.To = append(e.To, toUserEmail)                                                                                // 收件人邮箱地址                                                                               // 收件人邮箱地址
-	e.Subject = "马浩楠给您的亲爱的验证码"                                                                                      // 邮件主题
-	e.Text = []byte("您的验证码是：" + code)                                                                               // 邮件正文内容（纯文本）
-	e.HTML = []byte("<p>欢迎使用马浩楠的验证码测试</p></br><p>您的验证码是：</p></br><strong>" + code + "</strong></br><p>有效期限5分钟</p>") // 邮件正文内容（HTML格式）
+	e.From = smtpUser                                                                                                                                     // 发件人邮箱账号
+	e.To = append(e.To, toUserEmail)                                                                                                                      // 收件人邮箱地址                                                                               // 收件人邮箱地址
+	e.Subject = "欢迎使用AsPer问卷系统"                                                                                                                           // 邮件主题
+	e.Text = []byte("验证码:" + code)                                                                                                                        // 邮件正文内容（纯文本）
+	e.HTML = []byte("<strong>" + string(e.Text) + "</strong><br><p>有效时长5分钟</p><p>  本项目由mahaonan001在GitHub上开源的问卷系统go项目,如果有兴趣参加,欢迎联系1649801526@qq.com</p>") // 邮件正文内容（HTML格式）
 	newCode := model.EmailCode{
 		Email:      toUserEmail,
 		Code_email: code,
