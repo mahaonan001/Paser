@@ -15,7 +15,7 @@ func main() {
 	r := gin.Default()
 	r.Use(cors.New(cors.Config{
 		// 允许的域名或IP地址
-		AllowOrigins: []string{"http://192.168.1.102:8080", "http://localhost:8080"},
+		AllowOrigins: []string{"http://localhost:8080"},
 		// 允许的请求方法（GET, POST等）
 		AllowMethods: []string{"GET", "POST", "PUT", "DELETE"},
 		// 允许的请求头
